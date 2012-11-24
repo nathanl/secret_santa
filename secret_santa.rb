@@ -29,6 +29,10 @@ people.each do |person|
   Logger.log person.with_santa
 end
 
+# This is the nice part of Dennis's solution: if there are any invalid
+# assignments, they are corrected in a single pass. This is possible because
+# corrections are made in a way that ensures no new invalid assignments are
+# created.
 Logger.log "Checking assignments for validity"
 people.each do |person|
    unless person.santa.can_be_santa_of?(person)
