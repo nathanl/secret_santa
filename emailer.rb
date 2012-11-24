@@ -18,8 +18,9 @@ class Emailer
     if REALLY_SENDING
       print "Mailing #{email.to_address}..."
 
-      Net::SMTP.enable_tls
-      Net::SMTP.start(smtp_server, port, domain, account_address, password, :login) do |smtp| 
+      smtp = Net::SMTP.new(smtp_server, port)
+      smtp.enable_starttls
+      smtp.start(domain, account_address, account_password, :login) do |smtp|
         smtp.send_message(email.message, email.from_address, email.to_address)
       end
       
