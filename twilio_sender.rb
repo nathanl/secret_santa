@@ -10,11 +10,17 @@ class TwilioSender
   end
 
   def send(to, body)
-    twilio_client.account.messages.create({
-      :from => from,
-      :to => to,
-      :body => body,
-    })
+    if REALLY_SENDING
+      twilio_client.account.messages.create({
+        :from => from,
+        :to => to,
+        :body => body,
+      })
+    else
+      puts "**Testing: not really sending text messages\nThe message would be as follows:\n\n"
+      puts "message: #{body}, to: #{to}"
+      puts '========'
+    end
   end
 
   def twilio_client
