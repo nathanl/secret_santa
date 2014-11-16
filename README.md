@@ -11,9 +11,21 @@ The script uses Dennis Ranke's solution from [The Ruby Quiz #2](http://www.rubyq
 - Run `ruby secret_santa.rb` and examine the output
 - When you're satisfied, set `REALLY_SENDING` to `true` and run it again
 
+## Optional Twilio setup and usage
+
+- Fill in your own Twilio credentials in the `twilio.yml` config file
+- Change `SENDER_TYPE` to `:twilio`
+- Set `REALLY_SENDING` to `false` to disable really sending text messages or to `true` to really send text messages.
+
+!! Depending on your Twilio account settings, sending text messages may costs money.
+
 ## Dependencies
 
 None, other than Ruby (I tested on 1.9) and the standard library.
+
+If you want to use Twilio as sender type, you need to install the twilio-ruby gem:
+
+``gem install twilio-ruby'``
 
 ## Thanks
 
