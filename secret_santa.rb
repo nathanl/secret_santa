@@ -34,7 +34,7 @@ end
 # originally said "a single pass", but that's not true because the
 # `select` that looks for someone to swap santas with is just a
 # way of saying "loop through the list of people looking for a match.")
-# This works because corrections are made in a way that ensures no new 
+# This works because corrections are made in a way that ensures no new
 # invalid assignments are created.
 Logger.log "Checking assignments for validity"
 people.each do |person|
@@ -58,9 +58,9 @@ end
 
 smtp_config = YAML.load_file('config/smtp.yml')
 emailer     = Emailer.new(
-  smtp_config['smtp_server'], 
-  smtp_config['domain'], 
-  smtp_config['account_address'], 
+  smtp_config['smtp_server'],
+  smtp_config['domain'],
+  smtp_config['account_address'],
   smtp_config['account_password']
 )
 
@@ -74,7 +74,7 @@ people.each do |person|
  YOUR TARGET IS AS FOLLOWS:
 
  #{person.name.upcase}
- 
+
  THIS INFORMATION HAS BEEN KEPT SECRET FROM ALL HUMANS BUT YOU.
 
  IF I, SANTABOT, HAD EMOTIONS, I WOULD WISH YOU A MERRY CHRISTMAS,
