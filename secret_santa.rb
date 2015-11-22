@@ -9,7 +9,7 @@ require 'santa_logger'
 
 # Do some testing, then set this to true when ready to send
 # Will cause logging output to be shushed and mails to be sent
-REALLY_SENDING = false
+REALLY_SENDING = ENV.fetch("REALLY_SENDING", false)
 
 Logger = SantaLogger.new
 

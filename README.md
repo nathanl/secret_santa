@@ -9,7 +9,7 @@ The script uses Dennis Ranke's solution from [The Ruby Quiz #2](http://www.rubyq
 - Clone the repo
 - Copy each of the `.yml.example` files in `config/` to a corresponding `.yml` and customize
 - Run `ruby secret_santa.rb` and examine the output
-- When you're satisfied, set `REALLY_SENDING` to `true` and run it again
+- When you're satisfied, run `REALLY_SENDING=true ruby secret_santa.rb`
 
 ## Dependencies
 
