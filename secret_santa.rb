@@ -42,7 +42,7 @@ people.each do |person|
      Logger.log "\n#{person} can't get a gift from #{person.santa}! Let's try to fix that..."
      swap_candidates = people.select {|p| person.can_swap_santas_with?(p) }
      raise "Failure! No one can swap santas with #{person}" if swap_candidates.empty?
-     Logger.log "Any of these can swap santas with #{person}: #{swap_candidates}"
+     Logger.log "Any of these can swap santas with #{person}: #{swap_candidates.map(&:to_s)}"
      swapper = swap_candidates.sample
      Logger.log "Chose #{swapper} to swap santas with #{person}"
      misplaced_santa = person.santa
