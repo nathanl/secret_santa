@@ -3,27 +3,34 @@ people:
     name: Edward
     group: New York Smiths
     email: edward@example.com
+    phone: '+32123456'
   -
     name: Kara
     group: New York Smiths
     email: kara@example.com
+    phone: '+32123456'
   -
     name: Alberto
     group: Atlanta Smiths
     email: alberto@example.com
+    phone: '+32123456'
   -
     name: Natasha
     group: Atlanta Smiths
     email: jeanette@exaple.com
+    phone: '+32123456'
   -
     name: Tyler
     group: Seattle Joneses
     email: tyler@example.com
+    phone: '+32123456'
   -
     name: Linda
     group: Seattle Jonses
     email: linda@example.com
+    phone: '+32123456'
   -
     name: Fiona
     group: Seattle Jonses
     email: fiona@example.com
+    phone: '+32123456'

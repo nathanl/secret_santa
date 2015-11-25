@@ -1,0 +1,3 @@
+twilio_account_sid: very_secret_account_id
+twilio_auth_token: event_m0re_s3cr3t_auth_t0ken
+twilio_from_number: sender_phone_number

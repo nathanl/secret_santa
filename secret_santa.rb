@@ -1,10 +1,14 @@
 #!/usr/bin/env ruby
 
+# Choose type of sender, :email or :twilio
+SENDER_TYPE = :twilio
+
 $LOAD_PATH << '.'
 require 'yaml'
 require 'person'
 require 'emailer'
 require 'email'
+require 'twilio_sender' if SENDER_TYPE == :twilio
 require 'santa_logger'
 
 # Do some testing, then set this to true when ready to send
@@ -34,7 +38,7 @@ end
 # originally said "a single pass", but that's not true because the
 # `select` that looks for someone to swap santas with is just a
 # way of saying "loop through the list of people looking for a match.")
-# This works because corrections are made in a way that ensures no new 
+# This works because corrections are made in a way that ensures no new
 # invalid assignments are created.
 Logger.log "Checking assignments for validity"
 people.each do |person|
@@ -56,34 +60,51 @@ people.each do |person|
   Logger.log person.with_santa
 end
 
-smtp_config = YAML.load_file('config/smtp.yml')
-emailer     = Emailer.new(
-  smtp_config['smtp_server'], 
-  smtp_config['domain'], 
-  smtp_config['account_address'], 
-  smtp_config['account_password']
-)
+case SENDER_TYPE
+when :email
+  smtp_config = YAML.load_file('config/smtp.yml')
+  emailer     = Emailer.new(
+    smtp_config['smtp_server'],
+    smtp_config['domain'],
+    smtp_config['account_address'],
+    smtp_config['account_password']
+  )
 
-people.each do |person|
-  message = <<-MESSAGE
- GREETINGS #{person.santa.name.upcase},
+  people.each do |person|
+    message = <<-MESSAGE
+   GREETINGS #{person.santa.name.upcase},
 
- HATS ARE NOW OBSELETE.
+   HATS ARE NOW OBSELETE.
 
- SANTABOT 5000 HAS BEEN ACTIVATED. YOU HAVE BEEN CHOSEN AS A SECRET SANTA.
- YOUR TARGET IS AS FOLLOWS:
+   SANTABOT 5000 HAS BEEN ACTIVATED. YOU HAVE BEEN CHOSEN AS A SECRET SANTA.
+   YOUR TARGET IS AS FOLLOWS:
 
- #{person.name.upcase}
- 
- THIS INFORMATION HAS BEEN KEPT SECRET FROM ALL HUMANS BUT YOU.
+   #{person.name.upcase}
 
- IF I, SANTABOT, HAD EMOTIONS, I WOULD WISH YOU A MERRY CHRISTMAS,
- BUT AS IT IS THAT WOULD NOT REALLY MAKE SENSE.
+   THIS INFORMATION HAS BEEN KEPT SECRET FROM ALL HUMANS BUT YOU.
 
- THAT IS ALL.
+   IF I, SANTABOT, HAD EMOTIONS, I WOULD WISH YOU A MERRY CHRISTMAS,
+   BUT AS IT IS THAT WOULD NOT REALLY MAKE SENSE.
 
- --SANTABOT 5000
- MESSAGE
-  email = Email.new(person.santa.email, "SANTABOT 5000: #{Time.now.year} TARGETS", message)
-  emailer.send(email)
+   THAT IS ALL.
+
+   --SANTABOT 5000
+   MESSAGE
+    email = Email.new(person.santa.email, "SANTABOT 5000: #{Time.now.year} TARGETS", message)
+    emailer.send(email)
+  end
+when :twilio
+  twilio_config = YAML.load_file('config/twilio.yml')
+  twilio_sender = TwilioSender.new(
+    twilio_config['twilio_account_sid'],
+    twilio_config['twilio_auth_token'],
+    twilio_config['twilio_from_number']
+  )
+
+  people.each do |person|
+    message = "Hi #{person.santa.name}, you have to buy a present for #{person.name.upcase}"
+    twilio_sender.send(person.santa.phone, message)
+  end
+else
+  raise 'Unknown sender type'
 end
