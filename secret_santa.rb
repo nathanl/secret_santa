@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 $LOAD_PATH << '.'
+require 'erb'
 require 'yaml'
 require 'person'
 require 'emailer'
@@ -64,26 +65,13 @@ emailer     = Emailer.new(
   smtp_config['account_password']
 )
 
+template = File.read("letter_template.erb")
 people.each do |person|
-  message = <<-MESSAGE
- GREETINGS #{person.santa.name.upcase},
-
- HATS ARE NOW OBSELETE.
-
- SANTABOT 5000 HAS BEEN ACTIVATED. YOU HAVE BEEN CHOSEN AS A SECRET SANTA.
- YOUR TARGET IS AS FOLLOWS:
-
- #{person.name.upcase}
- 
- THIS INFORMATION HAS BEEN KEPT SECRET FROM ALL HUMANS BUT YOU.
-
- IF I, SANTABOT, HAD EMOTIONS, I WOULD WISH YOU A MERRY CHRISTMAS,
- BUT AS IT IS THAT WOULD NOT REALLY MAKE SENSE.
-
- THAT IS ALL.
-
- --SANTABOT 5000
- MESSAGE
-  email = Email.new(person.santa.email, "SANTABOT 5000: #{Time.now.year} TARGETS", message)
+  recipient_name = person.santa.name
+  target_name    = person.name
+  message        = ERB.new(template).result(binding)
+  email = Email.new(
+    person.santa.email, "SANTABOT 5000: #{Time.now.year} TARGETS", message
+  )
   emailer.send(email)
 end

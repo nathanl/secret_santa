@@ -10,6 +10,7 @@ The script uses Dennis Ranke's solution from [The Ruby Quiz #2](http://www.rubyq
 - Copy each of the `.yml.example` files in `config/` to a corresponding `.yml` and customize.
   - Security note: this script uses TLS to connect to your email account. If you're sending via a Gmail account, you can create a temporary password for this script at [https://security.google.com/settings/security/apppasswords](https://security.google.com/settings/security/apppasswords) and revoke it when you're done.
 - Run `ruby secret_santa.rb` and examine the output
+- Modify `letter_template.erb`, if you like, and repeat.
 - When you're satisfied, run `REALLY_SENDING=true ruby secret_santa.rb`
 
 ## Dependencies
