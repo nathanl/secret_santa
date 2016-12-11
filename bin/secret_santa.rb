@@ -4,7 +4,7 @@ require_relative '../lib/secret_santa'
 
 # Do some testing, then set this to true when ready to send
 # Will cause logging output to be shushed and mails to be sent
-REALLY_SENDING = ENV.fetch('REALLY_SENDING', false).downcase == true
+REALLY_SENDING = ENV.fetch('REALLY_SENDING', false).downcase == 'true'
 
 @logger = SantaLogger.new(REALLY_SENDING)
 
@@ -50,6 +50,7 @@ end
 people.each do |person|
   @logger.log person.with_santa
 end
+
 template_filepath = '../../lib/secret_santa/letter_template.erb'
 template = File.read(File.expand_path(template_filepath, __FILE__))
 people.each do |person|
