@@ -1,16 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'rubygems'
-require 'bundler/setup'
-Bundler.require
-
-require 'erb'
-require 'yaml'
-require 'securerandom'
-require_relative 'person'
-require_relative 'email'
-require_relative 'santa_logger'
-Dotenv.load
+require_relative '../lib/secret_santa'
 
 # Do some testing, then set this to true when ready to send
 # Will cause logging output to be shushed and mails to be sent
@@ -30,7 +20,7 @@ people.each do |person|
   person.santa = your_santa if your_santa
 end
 
-@logger.log "Initial Santa assignments:"
+@logger.log 'Initial Santa assignments:'
 people.each do |person|
   @logger.log person.with_santa
 end
@@ -42,7 +32,7 @@ end
 # way of saying "loop through the list of people looking for a match.")
 # This works because corrections are made in a way that ensures no new
 # invalid assignments are created.
-@logger.log "Checking assignments for validity"
+@logger.log 'Checking assignments for validity'
 people.each do |person|
   unless person.santa.can_be_santa_of?(person)
    @logger.log "\n#{person} can't get a gift from #{person.santa}! Let's try to fix that..."
@@ -62,7 +52,7 @@ people.each do |person|
   @logger.log person.with_santa
 end
 
-template = File.read('letter_template.erb')
+template = File.read(File.expand_path('../lib/secret_santa/letter_template.erb'))
 people.each do |person|
   recipient_name = person.santa.name
   target_name    = person.name
