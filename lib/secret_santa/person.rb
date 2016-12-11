@@ -8,7 +8,7 @@ class Person
   end
 
   def can_be_santa_of?(other)
-    self.group == other.group && other != self
+    group == other.group && other != self
   end
 
   def can_swap_santas_with?(other)

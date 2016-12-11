@@ -7,7 +7,7 @@ class Email
   attr_reader :sending
   Dotenv.load
 
-  def initialize(to_address, subject, body, sending:false)
+  def initialize(to_address, subject, body, sending: false)
     @from_address = ENV.fetch('DEFAULT_FROM')
     @to_address   = to_address
     @subject      = subject
@@ -27,13 +27,19 @@ class Email
       # Send your message through the client
       mg_client.send_message ENV.fetch('SENDING_DOMAIN'), message_params
     else
-      puts %(
-              **Testing; not really mailing anything**
-              from: #{@from_address}
-              to: #{@to_address}
-              subject: #{@subject}
-              #{@body}
-            )
+      debug_output(@from_address, @to_address, @subject, @body)
     end
+  end
+
+  private
+
+  def debug_output(from, to, subject, body)
+    puts %(
+            **Testing; not really mailing anything**
+            from: #{from}
+            to: #{to}
+            subject: #{subject}
+            #{body}
+          )
   end
 end

@@ -34,25 +34,24 @@ end
 # invalid assignments are created.
 @logger.log 'Checking assignments for validity'
 people.each do |person|
-  unless person.santa.can_be_santa_of?(person)
-   @logger.log "\n#{person} can't get a gift from #{person.santa}! Let's try to fix that..."
-   swap_candidates = people.select {|p| person.can_swap_santas_with?(p) }
-   raise "Failure! No one can swap santas with #{person}" if swap_candidates.empty?
-   @logger.log "Any of these can swap santas with #{person}: #{swap_candidates.map(&:to_s)}"
-   swapper = swap_candidates.sample
-   @logger.log "Chose #{swapper} to swap santas with #{person}"
-   misplaced_santa = person.santa
-   person.santa    = swapper.santa
-   swapper.santa   = misplaced_santa
-  end
+  next unless person.santa.can_be_santa_of?(person)
+  @logger.log "\n#{person} can't get a gift from #{person.santa}! Let's try to fix that..."
+  swap_candidates = people.select { |p| person.can_swap_santas_with?(p) }
+  raise "Failure! No one can swap santas with #{person}" if swap_candidates.empty?
+  @logger.log "Any of these can swap santas with #{person}: #{swap_candidates.map(&:to_s)}"
+  swapper = swap_candidates.sample
+  @logger.log "Chose #{swapper} to swap santas with #{person}"
+  misplaced_santa = person.santa
+  person.santa    = swapper.santa
+  swapper.santa   = misplaced_santa
 end
 
 @logger.log "\n\nFinal Santa assignments:"
 people.each do |person|
   @logger.log person.with_santa
 end
-
-template = File.read(File.expand_path('../lib/secret_santa/letter_template.erb'))
+template_filepath = '../../lib/secret_santa/letter_template.erb'
+template = File.read(File.expand_path(template_filepath, __FILE__))
 people.each do |person|
   recipient_name = person.santa.name
   target_name    = person.name
