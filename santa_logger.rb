@@ -1,9 +1,11 @@
 class SantaLogger
-  
   attr_accessor :sending
 
-  def log(message)
-    puts "#{message}" unless REALLY_SENDING # Sshh! It's a secret!
+  def initialize(sending=false)
+    @sending = sending
   end
 
+  def log(message)
+    puts "#{message}" unless @sending # Sshh! It's a secret!
+  end
 end
