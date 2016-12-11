@@ -1,0 +1,5 @@
+DEFAULT_FROM=santa@example.com
+DEFAULT_SUBJECT="secret santa 2016 assignment"
+MAILGUN_API_KEY=abc123
+REALLY_SENDING=false
+SENDING_DOMAIN=example.com

@@ -2,13 +2,13 @@ class Person
   attr_accessor :name, :group, :email, :santa
 
   def initialize(attrs)
-    self.name  = attrs["name"]
-    self.group = attrs["group"]
-    self.email = attrs["email"]
+    self.name  = attrs['name']
+    self.group = attrs['group']
+    self.email = attrs['email']
   end
 
   def can_be_santa_of?(other)
-    group != other.group
+    group == other.group && other != self
   end
 
   def can_swap_santas_with?(other)
@@ -22,5 +22,4 @@ class Person
   def with_santa
     "#{self} - santa: #{santa}"
   end
-
 end
