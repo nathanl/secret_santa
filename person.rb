@@ -1,10 +1,12 @@
 class Person
-  attr_accessor :name, :group, :email, :santa
+  attr_accessor :name, :group, :email, :santa, :likes, :address
 
   def initialize(attrs)
     self.name  = attrs["name"]
     self.group = attrs["group"]
     self.email = attrs["email"]
+    self.likes = attrs["likes"]
+    self.address = attrs["address"]
   end
 
   def can_be_santa_of?(other)

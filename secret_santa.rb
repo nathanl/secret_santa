@@ -69,6 +69,8 @@ template = File.read("letter_template.erb")
 people.each do |person|
   recipient_name = person.santa.name
   target_name    = person.name
+  target_likes    = person.likes
+  target_address    = person.address
   message        = ERB.new(template).result(binding)
   email = Email.new(
     person.santa.email, "SANTABOT 5000: #{Time.now.year} TARGETS", message
