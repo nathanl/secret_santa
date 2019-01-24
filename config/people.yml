@@ -1,0 +1,21 @@
+people:
+  -
+    name: John
+    likes: Apples, Blue
+    address: First Av. 49, Winterfell, Atlantis 293812
+    group: A
+    email: example@mail.com
+  -
+    name: Peter
+    likes: Apples, Blue
+    address: First Av. 49, Winterfell, Atlantis 293812
+    group: B
+    email: example@mail.com
+  -
+    name: William
+    likes: Apples, Blue
+    address: First Av. 49, Winterfell, Atlantis 293812
+    group: C
+    email: example@mail.com
+
+

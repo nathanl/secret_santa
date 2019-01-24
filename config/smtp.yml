@@ -1,0 +1,5 @@
+smtp_server: smtp.gmail.com
+domain: gmail.com
+account_address: uremail@gmail.com
+account_password: yourapppassword
+port: 587
